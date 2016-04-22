@@ -7,6 +7,7 @@ var person = {
   name = '童永全',
   nickName = 'yoqo',
   sex = 'man',
-  job = 'frontEnd'
+  job = 'Front end Engineer',
+  education = 'junior college'
 }
 ```
