@@ -1,0 +1,37 @@
+body{
+	background: #000;
+}
+canvas{
+	display: block;
+	margin: 50px auto;
+	box-shadow: 0 0 135px #4A090B;
+	background: #4A090B;
+}
+#test{
+	color: #0f0;
+	position: absolute;
+	padding: 20px;
+	background: #010101;
+	width: 80px;
+	display: none;
+}
+#handler{
+	text-align: center;
+}
+#handler a{
+	display: inline-block;
+	padding: 5px 18px;
+	text-decoration: none;
+}
+#handler a.btn-reset{
+	background: #482242;
+	color: #fff;
+	box-shadow: 0 0 40px #4A090B;
+	border-bottom: 2px solid #000;
+	border-radius: 5px;
+	transition: margin .2s;
+}
+#handler a.btn-reset:active{
+	margin-top: 2px;
+	border-bottom: 0 none;
+}
