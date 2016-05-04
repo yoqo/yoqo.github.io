@@ -1,11 +1,11 @@
 body{
-	background: #000;
+	background: #EAD0B2;
 }
 canvas{
 	display: block;
-	margin: 50px auto;
-	box-shadow: 0 0 135px #4A090B;
-	background: #4A090B;
+	margin: 50px auto 20px;
+	box-shadow: -2px -2px 2px #D2B89B,5px 5px 5px #A28F78;
+	background: #EAD0B2 url(../images/bg-repeat.png);
 }
 #test{
 	color: #0f0;
@@ -17,6 +17,8 @@ canvas{
 }
 #handler{
 	text-align: center;
+	width: 450px;
+	margin: 0 auto;
 }
 #handler a{
 	display: inline-block;
@@ -26,10 +28,9 @@ canvas{
 #handler a.btn-reset{
 	background: #482242;
 	color: #fff;
-	box-shadow: 0 0 40px #4A090B;
+	box-shadow: 0 0 5px #4A090B;
 	border-bottom: 2px solid #000;
 	border-radius: 5px;
-	transition: margin .2s;
 }
 #handler a.btn-reset:active{
 	margin-top: 2px;

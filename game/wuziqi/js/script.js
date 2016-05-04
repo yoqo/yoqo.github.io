@@ -82,12 +82,12 @@ for (var i = 0; i < count; i++) {
 var chess = document.getElementById('chess');
 var context = chess.getContext('2d');
 
-context.strokeStyle = "#000";
+context.strokeStyle = "#B9A38A";
 
 var logo = new Image();
-logo.src = "images/bg.png";
+logo.src = "images/bg-repeat.png";
 logo.onload = function(){
-	context.drawImage(logo, 0, 0, 450, 450);
+	// context.drawImage(logo, 0, 0, 450, 450);
 	drawChessBoard();
 }
 
