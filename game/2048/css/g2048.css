@@ -1,0 +1,299 @@
+body{
+	background: #383e69;
+	height: 100%;
+}
+
+#wrap {
+    
+}
+
+.content {
+    width: 800px;
+    margin: 0 auto;
+	margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #999;
+    border-radius: 15px;
+    background-color: #aac9be;
+    position: relative;
+	overflow: hidden;
+}
+
+.bg{
+	position: absolute;
+	overflow: visible;
+	filter: alpha(opacity=20);
+	-moz-opacity: 0.2;
+	opacity: 0.2;
+}
+
+.bg .square{
+	
+}
+
+h3 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.box {
+    width: 355px;
+    height: 380px;
+    margin: 20px auto;
+    background: #dbdbdb;
+    position: relative;
+    padding-top: 40px;
+    padding-left: 20px;
+    border-radius: 30px;
+}
+
+
+.blank {
+    width: 80px;
+    height: 80px;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #b2b2b2;
+    border-radius: 10px;
+    
+}
+
+
+.cube {
+    position: absolute;
+    width: 80px;
+    height: 75px;
+    color: #fff;
+    border-radius: 10px;
+    background: #87bbe2;
+    text-align: center;
+    font: bold 30px/75px microsoft yahei;
+    border-bottom: 5px solid #658ead;
+}
+
+.start {
+    position: absolute;
+	bottom: 170px;
+	left: 88px;
+    width: 200px;
+	height: 75px;
+    color: #fff;
+    background: #4e9ed9;
+    border-bottom: 5px solid #3e77a2;
+	cursor: pointer;
+}
+.start:hover{
+    background: #478ec3;
+    border-bottom-color: #2f5877;
+}
+
+.pos1 {
+    left : 20px;
+    top: 40px;
+}
+
+.pos2 {
+    left : 105px;
+    top: 40px;
+}
+
+.pos3 {
+    left : 190px;
+    top: 40px;
+}
+
+.pos4 {
+    left : 275px;
+    top: 40px;
+}
+
+.pos5 {
+    left : 20px;
+    top: 125px;
+}
+
+.pos6 {
+    left : 105px;
+    top: 125px;
+}
+
+.pos7 {
+    left : 190px;
+    top: 125px;
+}
+
+.pos8 {
+    left : 275px;
+    top: 125px;
+}
+
+.pos9 {
+    left : 20px;
+    top: 210px;
+}
+
+.pos10 {
+    left : 105px;
+    top: 210px;
+}
+
+.pos11 {
+    left : 190px;
+    top: 210px;
+}
+
+.pos12 {
+    left : 275px;
+    top: 210px;
+}
+
+.pos13 {
+    left : 20px;
+    top: 295px;
+}
+
+.pos14 {
+    left : 105px;
+    top: 295px;
+}
+
+.pos15 {
+    left : 190px;
+    top: 295px;
+}
+
+.pos16 {
+    left : 275px;
+    top: 295px;
+}
+
+.num4{
+	background-color: #87e295;
+	border-bottom-color: #5e9566;
+}
+.num8{
+	background-color: #a4ce56;
+	border-bottom-color: #768e47;
+}
+.num16{
+	background-color: #d7de40;
+	border-bottom-color: #959835;
+}
+.num32{
+	background-color: #f4b426;
+	border-bottom-color: #c18f20;
+}
+.num64{
+	background-color: #ed8a18;
+	border-bottom-color: #b56b15;
+}
+.num128{
+	background-color: #ff7145;
+	border-bottom-color: #b45335;
+}
+.num256{
+	background-color: #32ac86;
+	border-bottom-color: #206952;
+}
+.num512{
+	background-color: #924de2;
+	border-bottom-color: #66389b;
+}
+.num1024{
+	background-color: #c914d8;
+	border-bottom-color: #9511a0;
+    font-size: 28px;
+}
+.num2048{
+	background-color: #de3232;
+	border-bottom-color: #a82727;
+    font-size: 28px;
+}
+.num4096{
+	background-color: #e2043f;
+	border-bottom-color: #8b1751;
+    font-size: 28px;
+}
+.num8192{
+	background-color: #186abc;
+	border-bottom-color: #124e89;
+    font-size: 24px;
+}
+.num16384{
+	background-color: #507712;
+	border-bottom-color: #37520e;
+    font-size: 20px;
+}
+.num32768{
+	background-color: #8d2e11;
+	border-bottom-color: #4e1a0a;
+    font-size: 20px;
+}
+.num65536{
+	background-color: #0d3452;
+	border-bottom-color: #03070a;
+    font-size: 20px;
+}
+
+.state {
+	position: absolute;
+	width: 180px;
+	right: 0px;
+	top: 100px;
+}
+
+.state span{
+	font: bold 28px microsoft yahei;
+	color: #66669b;
+}
+
+.state .score{
+    color: #ac3f3b;
+}
+
+.black_bg{
+	background: #000;
+	filter: alpha(opacity=70);
+	-moz-opacity: 0.7;
+	opacity: 0.7;
+}
+
+.endbox {
+	position: absolute;
+	width: 375px;
+	height: 380px;
+	top: 0;
+	left: 0;
+    padding-top: 40px;
+    border-radius: 30px;
+	text-align: center;
+	display: none;
+}
+.endbox .notice{
+	color: #fff;
+	font: bold 30px/80px microsoft yahei;
+}
+.btn{
+	color: #fff;
+	display: block;
+	height: 30px;
+	width: 100px;
+	margin: 20px 0;
+	font: normal 16px/30px microsoft yahei;
+	text-align: center;
+	background: #5a7bd6;
+}
+
+.final {
+	margin-top: 100px;
+	color: #fff;
+	font: bold 16px/1.5em microsoft yahei;
+}
+
+.final .endscore{
+	color: #d7ef21;
+	font-size: 28px;
+	margin-left: 10px;
+}
