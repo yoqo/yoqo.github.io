@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>在线小键盘练习</title>
+	<link rel="shortcut icon" href="http://yoqo.github.io/favicon.ico">
+	<style type="text/css">
+		*{ margin: 0; padding: 0; transition: all .2s;}
+		body{ background: #654E74; color: #333; font-size: 12px; font-family: 'microsoft yahei' sans-serif; }
+		a{ outline: none; text-decoration: none; color: #333;}
+		input{ outline: none; vertical-align: middle;}
+		ul{ list-style: none;}
+		.cred{ color: #ff0000; }
+		.cgreen{ color: #00ff00; }
+		.cpurple{ color: #ED16E8; }
+		.bg8{background: rgba(255, 255, 255, .8); position: relative;}
+		.bg8:hover{ box-shadow: 0 5px 5px rgba(0,0,0,.2);}
+
+		.wrap{ background: #FF89A4; border-radius: 10px; width: 900px; height: 556px; margin: 0 auto; position: relative; top: 10px; border: 4px solid #351B46; padding: 10px;}
+		.top,.left,.right{  position: relative;}
+		.top{ height: 60px; line-height: 60px; padding: 0 15px; margin-bottom: 10px;}
+		.top h2{ padding-left: 60px; background: url(images/ali_045.gif) left center no-repeat; background-size: 50px 50px; }
+		.top h2 b{ width: 0; white-space: nowrap; overflow: hidden; display: inline-block; vertical-align: bottom; color: #CE21B0;}
+		.top h2 span:hover + b{ width: 116px; }
+		.top .handler{ float: right; overflow: hidden; }
+		.top .handler a{ width: 100px; height: 40px; line-height: 40px; text-align: center; border: 2px solid #CE21B0; color: #CE21B0; display: block; float: right; font-weight: bold; font-size: 16px; border-radius: 20px; background: #fff; margin: 8px 0 0 10px; overflow: hidden; position: relative;} 
+		.top .handler a span{ position: relative; transition: all 1s;}
+		.top .handler a:hover span{ top: -50px; }
+		.top .handler a:hover img{ position: relative; top: -50px; width: 50px; }
+		.top .handler .tip{ float: right; }
+		.top .handler .tip b{ font-weight: normal; display: inline-block; line-height: 26px; border-radius: 26px; padding: 0 3px; border: 1px solid #FF5200; color: #FF5200; overflow: hidden; white-space: nowrap;  cursor: default; margin-top: 16px;}
+		.top .handler .tip b i{ font-style: normal; float: left; width: 20px; height: 20px; line-height: 20px; margin-top: 3px; text-align: center; background: #FF5200; border-radius: 20px; color: #fff; margin-right: 5px; font-weight: bold; transition-duration: .5s;}
+		.top .handler .tip b:hover i{ transform: rotate(360deg); }
+		.top .sound_wrap{ display: none; }
+
+		.left{ float: left; margin-right: 10px;}
+		.left .left_top{ width: 200px; height: 323px; margin-bottom: 10px;}
+		.left .left_top .sp{ height: 0; padding-top: 1px; background: #fff; margin: 10px; }
+		.left .left_top p{ margin: 0 10px; height: 30px; line-height: 30px; font-size: 14px; }
+		.left .left_top p span{ float: left; width: 90px; height: 30px; overflow: hidden;}
+		.left .left_top p b { float: left; width: 80px; height: 30px; text-align: right;}
+		.left .left_top p.total span{ width: 120px; }
+		.left .left_top p.total b{ width: 50px; }
+		.left .left_bottom{ width: 180px; height: 133px; padding: 10px; }
+		.left .left_bottom .producer{ height: 133px; width: 133px; margin: 0 auto; text-align: center; overflow: hidden; position: relative;}
+		.left .left_bottom .producer .info{ height: 100%; width: 100%; border-radius: 100px; position: absolute; left: 0; top: 0;}
+		.left .left_bottom .producer .me{ line-height: 25px; background: #FF89A4; color: #fff;}
+		.left .left_bottom .producer .me p:first-child{ padding-top: 30px;}
+
+		.right{ float: left; }
+		.right .right_top{ width: 689px; height: 358px; margin-bottom: 10px;}
+		.right .right_top .output{ height: 70px; line-height: 80px; overflow: hidden; }
+		.right .right_top .input{ height: 80px; line-height: 80px; position: relative;}
+		.right .right_top label{ float: left; width: 100px; text-align: center; font-size: 20px; color: #555; font-weight: bold;}
+		.right .right_top .item{ float: left; width: 580px; position: relative;}
+		.right .right_top .number{ font-family:  Consolas,微软雅黑,monaco; letter-spacing: 4px; font-size: 42px; font-weight: bold;  padding: 0 10px; }
+		.right .right_top .number span{transition: none;}
+		.right .right_top .square{ position: absolute; top: 14px; width: 570px; height: 50px; border: 2px solid #CE21B0;}
+		.right .right_top .square:before{content: "▶"; font-size: 26px; position: absolute; left: -20px; height: 50px; line-height: 45px; color: #CE21B0;}
+		.right .right_top .output:nth-child(2) .square{ display: none;}
+		.right .right_top.square_down .output:nth-child(1) .square{ display: none;}
+		.right .right_top.square_down .output:nth-child(2) .square{ display: block;}
+		.right .right_top .keyborad{ width: 555px; border: 0 none; outline: none; padding: 0 10px; position: relative; top: 0; color: #3050CE;}
+		.right .right_top .input .tip{ position: absolute; right: 14px; bottom: -10px; height: 20px; line-height: 20px; color: #FF5200;}
+		.right .right_top .comment{position: relative; height: 70px;}
+		.right .right_top .comment span{ display: block; animation: commentText 2s 1; text-align: center; font-size: 28px; font-weight: bold; position: absolute; width: 180px; left: 50%; margin-left: -90px; top: 100px; z-index: 10;}
+		.right .right_top .comment span.bad{ color: #693434; text-shadow: 1px 2px 1px #5E9BBF; }
+		.right .right_top .comment span.nomarl{ color: #5F1D26; text-shadow: 1px 2px 1px #CA637F; }
+		.right .right_top .comment span.good{ color: #27BB15; text-shadow: 1px 2px 1px #084026; }
+		.right .right_top .comment span.great{ color: #FF8C49; text-shadow: 1px 2px 1px #C1482C; }
+		.right .right_top .comment span.excellent{ color: #F94141; text-shadow: 1px 2px 1px #B71DCA; }
+		.right .right_top .comment span.prefect{ color: #FCFF2C; text-shadow: 1px 2px 1px #17B123; }
+		@keyframes commentText
+		{
+			0% { transform: scale(0, 0.3) translate(0,0); }
+			10% { transform: scale(1, 1) translate(0,-70px); }
+			90% { transform: translate(0,-70px); }
+		}
+		.right .right_bottom{ width: 669px; height: 98px; padding: 10px; background: #fff;}
+		.right .right_bottom .progress{ padding: 10px 0 20px 90px; position: relative;}
+		.right .right_bottom .progress .progress-title{ position: absolute; left: 10px; top: 0; font-size: 16px; font-weight: bold;}
+		.right .right_bottom .progress .bar{ background: #0023CE; height: 5px; position: relative;}
+		.right .right_bottom .progress .bar span{ background: rgba(255,255,255,.7); position: absolute; left: 0; top: 0; height: 5px; width: 0;}
+		.right .right_bottom .progress .bar span:after{ content: "▼"; position: absolute; right: -8px; font-size: 14px; color: #3050CE; bottom: 0; }
+		.right .right_bottom .progress .bar span i{ font-style: normal; position: absolute; right: -40px; top: 5px; text-align: center; width: 80px; height: 90px; background: url(images/ali_029rs.gif) 0 bottom no-repeat;}
+
+		.dialog{ position: absolute; z-index: 11111; width: 100%; height: 100%; top: 0; bottom: 0; left: 0; background: transparent; display: none;}
+		.dialog .d{ position: absolute; width: 380px; background: #fff; height: 200px; left: 50%; margin-left: -190px; top: 50%; margin-top: -100px; border: 2px solid #ce21b0; border-radius: 10px; box-shadow: 0 0 20px #CE21B0; overflow: hidden;} 
+		.dialog .d_head{ height: 30px; line-height: 30px; border-bottom: 2px solid #CE21B0; background: #CE21B0; color: #fff; font-weight: bold; padding: 0 10px;}
+		.d_close{ position: absolute; right: 5px; top: 0px; font-size: 28px; line-height: 1; height: 32px; width: 28px; text-align: center; color: #fff;}
+		.d_close:hover{ transform: rotate(360deg);}
+		.d_body{ padding: 10px; font-size: 14px;}
+		.d_body .l{ float: left; width: 250px; height: 150px;}
+		.d_body .r{ float: left; width: 110px; height: 150px; position: relative;}
+		.d_body .l li{ height: 37px; line-height: 37px;}
+		.d_body .l li label{ width: 70px; display: inline-block;}
+		.d_body .l .d_tip{color: #FF5200; font-weight: bold;}
+		.d_body .r .btn-go{ position: absolute; width: 100px; height: 100px; line-height: 100px; border-radius: 60px; border: 4px solid #CE21B0; color: #CE21B0; background: #fff; font-size: 30px; text-align: center; left: 0; top: 22px; font-weight: bold; overflow: hidden;}
+		.d_body .r .btn-go img{ position: absolute; left:0; top: 0; width: 100px; height: 100px; display: none; }
+		.d_body .r .btn-go:hover img{ display: block; }
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="top bg8">
+			<div class="handler">
+				<a href="javascript:;" id="start"><span>START</span><img src="images/ali_069.gif" alt="">	</a>
+				<span class="tip"><b><i>★</i>请敲击"S"键，或点击右侧"START"开始练习。</b></span>
+			</div>
+			<h2><span>小键盘练习</span><b>-童紫趣定制版</b></h2>
+			<div class="sound_wrap" id="sound_wrap">
+				<audio class="sound" id="sound_1"></audio>
+				<audio class="sound" id="sound_2"></audio>
+				<audio class="sound" id="sound_3"></audio>
+				<audio class="sound" id="sound_4"></audio>
+				<audio class="sound" id="sound_5"></audio>
+				<audio class="sound" id="sound_6"></audio>
+				<audio class="sound" id="sound_7"></audio>
+				<audio class="sound" id="sound_8"></audio>
+				<audio class="sound" id="sound_9"></audio>
+				<audio class="sound" id="sound_10"></audio>
+				<audio class="sound" id="sound_11"></audio>
+				<audio class="sound" id="sound_12"></audio>
+			</div>
+		</div>
+		<div class="left">
+			<div class="left_top bg8" id="state">
+				<p><span>已经录入：</span><b id="s_count">0</b></p>
+				<p><span>正确数字：</span><b id="s_yes">0</b></p>
+				<p><span>错误数字：</span><b id="s_no" class="cred">0</b></p>
+				<div class="sp"></div>
+				<p><span>数字组：</span><b id="s_count_g">0</b></p>
+				<p><span>正确组：</span><b id="s_yes_g">0</b></p>
+				<p><span>错误组：</span><b id="s_no_g" class="cred">0</b></p>
+				<div class="sp"></div>
+				<p class="total"><span>平均速度（/分）：</span><b id="s_speed" class="cpurple">0</b></p>
+				<p class="total"><span>正确率（%）：</span><b id="s_percent" class="cpurple">0</b></p>
+				<p class="total"><span>综合评分（/分）：</span><b id="s_score" class="cpurple">0</b></p>
+			</div>
+			<div class="left_bottom bg8">
+				<div class="producer">
+					<div class="info me">
+						<p>制作人：童永全</p>
+						<p>职业：web前端工程师</p>
+						<p>QQ：823504984</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="right">
+			<div class="right_top bg8">
+				<div class="output">
+					<label>组1</label>
+					<div class="item">
+						<div class="number" id="group1"></div>
+						<div class="square"></div>
+					</div>
+				</div>
+				<div class="output">
+					<label>组2</label>
+					<div class="item">
+						<div class="number" id="group2"></div>
+						<div class="square"></div>
+					</div>
+				</div>
+				<div class="comment" id="comment"></div>
+				<div class="input">
+					<label>填满</label>
+					<div class="item">
+						<input type="text" class="keyborad number" maxlength="0" id="keyborad">
+					</div>
+					<div class="tip" id="input_tip"></div>
+				</div>
+			</div>
+			<div class="right_bottom bg8">
+				<div class="progress">
+					<div class="progress-title">逝者如斯</div>
+					<div class="bar" id="time_bar"><span><i></i></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="dialog" id="dialog">
+			<div class="d d_start">
+				<div class="d_head">
+					设置
+					<a href="javascript:;" class="d_close">×</a>
+				</div>
+				<div class="d_body">
+					<div class="l">
+						<ul>
+							<li><div class="d_tip">★设置完成按"S"键或右侧按钮开始练习</div></li>
+							<li>
+								<label>随机个数</label>
+								<input type="checkbox" id="isRandom" value="1">
+								<span>6~20个之间随机</span>
+							</li>
+							<li>
+								<label>固定个数</label>
+								<input type="range" id="set_number"  class="input_range" max="20" min="6" value="12">
+								<span id="set_number_show" class="input_show">12</span>
+							</li>
+							<li>
+								<label>时长(分钟)</label>
+								<input type="range" id="set_time" class="input_range" max="20" min="1" value="5">
+								<span id="set_time_show" class="input_show">5</span>
+							</li>
+						</ul>
+					</div>
+					<div class="r">
+						<a href="javascript:;" class="btn-go" id="go">GO!<img src="images/ali_048.gif"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var app = function(){
+		var group1 = [];   //组1数组
+		var group2 = [];   //组2数组
+		var Gameing = false; //是否在游戏中
+		var GetReady = false; //是否准备游戏界面，设置界面
+		var curGroup = 1; //当前正在输入的组
+		var valueLen = 0; //当前输入框内数字的长度
+		var wrongGroup = []; //当前组错误下标
+		var length1, length2; //组1和组2的长度
+		var isRandom = false; //是否随机长度
+		var groupLen = 0;  //设置的固定长度
+		var timeLen = ""; //设置时长,单位秒
+		var useTime = 0; //已用时间
+		var setTimeFlow; //循环函数
+		var startLineTime; //开始一行时瞬间的客户端时间
+		var $group1 = document.getElementById("group1");
+		var $group2 = document.getElementById("group2");
+		var $input = document.getElementById("keyborad");
+		var $input_tip = document.getElementById("input_tip");
+		var $start = document.getElementById("start");
+		var $time_bar = document.getElementById("time_bar");
+		var $s_count = document.getElementById("s_count");
+		var $s_yes = document.getElementById("s_yes");
+		var $s_no = document.getElementById("s_no");
+		var $s_count_g = document.getElementById("s_count_g");
+		var $s_yes_g = document.getElementById("s_yes_g");
+		var $s_no_g = document.getElementById("s_no_g");
+		var $s_speed = document.getElementById("s_speed");
+		var $s_percent = document.getElementById("s_percent");
+		var $s_score = document.getElementById("s_score");
+		var s_count = 0;
+		var s_yes = 0;
+		var s_no = 0;
+		var s_count_g = 0;
+		var s_yes_g = 0;
+		var s_no_g = 0;
+		var s_speed = 0;
+		var s_percent = 0;
+		var s_score = 0;
+		var $set_number = document.getElementById("set_number");
+		var $set_number_show = document.getElementById("set_number_show");
+		var $set_time = document.getElementById("set_time");
+		var $set_time_show = document.getElementById("set_time_show");
+		var $isRandom = document.getElementById("isRandom");
+		var $go = document.getElementById("go");
+		var $dialog = document.getElementById("dialog");
+		var $d_close = document.querySelector(".d_close");
+		var curSound = 1;
+		var lang = {
+			please_input1 : "★亲，现在请敲击键盘，输入组1的数字",
+			please_input2 : "★亲，现在请敲击键盘，输入组2的数字",
+			please_space  : "★亲，输入完成，按空格键继续"
+		};
+
+		document.addEventListener("keydown", function(e) {
+			e = e ? e : window.event;
+			if(e.keyCode){
+				//按"s"键开始
+				if(e.keyCode == 83){
+					start();
+				}
+			}
+		});
+		$start.addEventListener("click", start, false);
+		$set_number.addEventListener("change", function(){
+			$set_number_show.innerHTML = this.value;
+		}, false);
+		$set_time.addEventListener("change", function(){
+			$set_time_show.innerHTML = this.value;
+		}, false);
+		$isRandom.addEventListener("click", isRandom_handler, false);
+		$d_close.addEventListener("click", dialog_close, false);
+		$go.addEventListener("click", go, false);
+
+		// updateHistory();
+
+		function isRandom_handler() {
+			if($isRandom.checked){
+				$set_number.setAttribute("disabled","disabled");
+			}else{
+				$set_number.removeAttribute("disabled");
+			}
+		}
+
+		function dialog_close() {
+			$dialog.style.display = "none";
+			GetReady = false;
+		}
+
+		function dialog_show() {
+			Gameing = true;
+			GetReady = true;
+			$dialog.style.display = "block";
+		}
+
+		function show_tip(str) {
+			$input_tip.innerHTML = str;
+		}
+
+		function clear() {
+			clearInterval(setTimeFlow);
+			show_tip("");
+			$input.removeEventListener("keydown", pressSpace);
+			$input.removeEventListener("input",inputing);
+			$input.value = "";
+			removeClass(document.querySelector(".right_top"), "square_down");
+			$input.setAttribute("maxlength", 0);
+			$time_bar.getElementsByTagName("span")[0].style.width = "0px";
+			$time_bar.getElementsByTagName("span")[0].getElementsByTagName("i")[0].innerHTML = "";
+			$time_bar.getElementsByTagName("span")[0].getElementsByTagName("i")[0].style.backgroundImage = "url(images/ali_029rs.gif)";
+			$group1.innerHTML = "";
+			$group2.innerHTML = "";
+			valueLen = 0;
+			useTime = 0;
+			timeLen = 0;
+			Gameing = false;
+			curGroup = 1;
+			curInputLen = 0;
+			wrongGroup = [];
+			s_count = 0;
+			s_yes = 0;
+			s_no = 0;
+			s_count_g = 0;
+			s_yes_g = 0;
+			s_no_g = 0;
+			s_speed = 0;
+			s_percent = 0;
+			s_score = 0;
+			updateScore();
+		}
+
+		function start(){
+			if(GetReady){
+				go();
+			}else{
+				clear();
+				dialog_show("start");
+			}
+		}
+
+		function go() {
+			Gameing = true;
+			isRandom = $isRandom.checked ? true : false;
+			groupLen = parseInt($set_number.value);
+			timeLen = parseInt($set_time.value) * 60;
+			dialog_close();
+			init();
+		}
+
+		function init() {
+			//产生两组数字
+			group1 = [];
+			group2 = [];
+			updateNumber(1);
+			updateNumber(2);
+			//设置输入框最大输入长度，输入框获取焦点，显示提示文字
+			$input.setAttribute("maxlength", length1);
+			$input.focus();
+			show_tip(lang.please_input1);
+			//本行开始的时刻
+			startLineTime = new Date();
+
+			//监听输入框键盘松开事件
+			$input.addEventListener("input", inputing, false);
+
+			//初始化进度条
+			progressShort();
+			//时间流逝
+			setTimeFlow = setInterval(timeFlow, 1000);
+		}
+
+		function inputing () {
+			if($input.value.match(/\D/)){
+				$input.value=$input.value.replace(/\D/g,'');
+				playSound("shoot");
+			}else{
+				playSound("pada");
+			}
+			var value = $input.value;
+			valueLen = value.length;
+			//当前是组1还是组2
+			var $nowGroup, nowLength, nowGroup = [];
+			if(curGroup == 1){
+				$nowGroup = $group1;
+				nowGroup = group1;
+				nowLength = length1;
+			}else if(curGroup == 2){
+				$nowGroup = $group2;
+				nowGroup = group2;
+				nowLength = length2;
+			}
+
+			for (var i = 0; i < nowLength; i++) {
+				if(value[i] != nowGroup[i] && value[i] != undefined){
+					addClass($nowGroup.getElementsByTagName("span")[i], "cred");
+					if(wrongGroup.indexOf(i) == -1  ){
+						wrongGroup.push(i);
+						s_no++;
+					}
+				}else if(value[i] == nowGroup[i] || value[i] == undefined){
+					removeClass($nowGroup.getElementsByTagName("span")[i], "cred");
+					//将已添加到错误数组里的删除
+					if(wrongGroup.indexOf(i) != -1 ){
+						for(var j = 0; j < wrongGroup.length; j++){
+							if(wrongGroup[j] == i ){
+								wrongGroup.splice(j,1);
+								s_no--;
+							}
+						}
+					}
+				}
+			};
+			// 如果数量达到最大，可以按回车
+			if( valueLen == nowLength){
+				$input.addEventListener("keydown", pressSpace, false);
+				show_tip(lang.please_space);
+			}else{
+				$input.removeEventListener("keydown", pressSpace);
+				if(curGroup == 1){
+					show_tip(lang.please_input1);
+				}else{
+					show_tip(lang.please_input2);
+				}
+			}
+
+			//计算数据
+			s_yes = s_count + valueLen - s_no;
+		}
+
+		//按下空格
+		function pressSpace(e) {
+			e = e ? e : window.event;
+			if(e.keyCode){
+				if(e.keyCode == 32){
+					$input.value = "";//清空输入框
+					//统计组成绩
+					s_count_g++;
+					if( wrongGroup.length > 0) s_no_g++ ;
+					s_yes_g = s_count_g - s_no_g;
+					//自身解绑事件
+					$input.removeEventListener("keydown", pressSpace);
+					//清空暂存数字的数组
+					if(curGroup==1){
+						group1 = [];
+						$input.setAttribute("maxlength", length2);
+						show_tip(lang.please_input2);
+						addClass(document.querySelector(".right_top"), "square_down");
+						s_count += length1;
+					}else{
+						group2 = [];
+						$input.setAttribute("maxlength", length1);
+						show_tip(lang.please_input1);
+						removeClass(document.querySelector(".right_top"), "square_down");
+						s_count += length2;
+					}
+					//本行评分
+					showGroupScore();
+					//产生新的一组数字
+					updateNumber(curGroup);
+					//切换当前组
+					curGroup = curGroup == 1 ? 2 : 1;
+
+					//重置参数
+					curInputLen = 0; //清零
+					wrongGroup = [];
+					valueLen = 0;
+					startLineTime = new Date();
+				}
+			}
+		}
+
+		function showGroupScore(){
+			var wLen = wrongGroup.length;
+			var wPercent = wLen / valueLen; // 错误率 0 ~ 1
+			var nowTime = new Date();
+			var deltaTime = nowTime - startLineTime;
+			var gspeed = (valueLen / (deltaTime / 1000)) * 60; // 行速度 0 ~ 720↑（极限）
+			var rank = gspeed * (1 - wPercent);  //行综合评分  全错0 ~ 全对72000
+			var langComment = ["bad","nomarl","good","great","excellent","prefect"];
+			var comment ; //评语 bad ,nomarl,good, great,excellent,prefect
+			var coClass ;
+			//人类极限打字全对速度约450每分，200以上评分为prefect
+			if(wPercent == 0){
+				if(rank > 200){
+					comment = langComment[5] + "!!";
+					coClass = langComment[5];
+				}else if( rank > 150){
+					comment = langComment[4] + "!";
+					coClass = langComment[4];
+				}else if( rank > 120){
+					comment = langComment[3] + "!";
+					coClass = langComment[3];
+				}else if( rank > 60){
+					comment = langComment[2] + "!";
+					coClass = langComment[2];
+				}else if( rank > 30){
+					comment = langComment[1] + "~";
+					coClass = langComment[1];
+				}else{
+					comment = langComment[0] + "~";
+					coClass = langComment[0];
+				}
+			}else if(wPercent < 0.2){
+				if(rank > 200){
+					comment = langComment[4] + "!";
+					coClass = langComment[4];
+				}else if( rank > 150){
+					comment = langComment[3] + "!";
+					coClass = langComment[3];
+				}else if( rank > 120){
+					comment = langComment[2] + "!";
+					coClass = langComment[2];
+				}else if( rank > 60){
+					comment = langComment[1] + "~";
+					coClass = langComment[1];
+				}else if( rank > 30){
+					comment = langComment[0] + "~";
+					coClass = langComment[0];
+				}else{
+					comment = langComment[0] + "~";
+					coClass = langComment[0];
+				}
+			}else{
+				if(rank > 200){
+					comment = langComment[1] + "~";
+					coClass = langComment[1];
+				}else if( rank > 150){
+					comment = langComment[1] + "~";
+					coClass = langComment[1];
+				}else if( rank > 120){
+					comment = langComment[0] + "~";
+					coClass = langComment[1];
+				}else if( rank > 60){
+					comment = langComment[0] + "~";
+					coClass = langComment[1];
+				}else if( rank > 30){
+					comment = langComment[0] + "~";
+					coClass = langComment[1];
+				}else{
+					comment = langComment[0] + "~";
+					coClass = langComment[1];
+				}
+			}
+
+			var commentBox = document.getElementById("comment");
+			var $comment = document.createElement("span");
+			$comment.innerHTML = comment;
+			$comment.className = coClass;
+			commentBox.appendChild($comment);
+			setTimeout(function(){
+				commentBox.removeChild($comment);
+			}, 1000);
+		}
+
+		function playSound(name) {
+			var $sound_wrap = document.getElementById("sound_wrap");
+			var src = "src/" + name + ".wav";
+			var $sound;
+			if(curSound < 12){
+				$sound = document.getElementById("sound_" + curSound);
+				curSound ++;
+			}else{
+				$sound = document.getElementById("sound_1");
+				curSound = 1;
+			}
+
+			$sound.setAttribute("src", src);
+			$sound.play();
+		}
+
+		function updateNumber(index){
+			//更新组1还是组2
+			var $nowGroup;
+			var nowLength = 0;
+			var groupStr = "";
+			if(isRandom){
+				if(index == 1){
+					length1 = Math.floor(Math.random()*(20-6)+6);
+				}else{
+					length2 = Math.floor(Math.random()*(20-6)+6);
+				}
+			}else{
+				if(index == 1){
+					length1 = groupLen;
+				}else{
+					length2 = groupLen;
+				}
+			}
+			if(index == 1){
+				$nowGroup = $group1;
+				nowLength = length1;
+			}else if(index == 2){
+				$nowGroup = $group2;
+				nowLength = length2;
+			}
+			for (var i = 0; i < nowLength; i++) {
+				if(index == 1){
+					group1.push(Math.floor(Math.random()*10));
+					groupStr += "<span>" + group1[i] + "</span>";
+				}else{
+					group2.push(Math.floor(Math.random()*10));
+					groupStr += "<span>" + group2[i] + "</span>";
+				}
+			}
+			$nowGroup.innerHTML = groupStr;
+			return nowLength;
+		}
+
+		//更新成绩栏
+		function updateScore() {
+			$s_count.innerHTML = s_count + valueLen;
+			$s_yes.innerHTML = s_yes;
+			$s_no.innerHTML = s_no;
+			$s_count_g.innerHTML = s_count_g;
+			$s_yes_g.innerHTML = s_yes_g;
+			$s_no_g.innerHTML = s_no_g;
+			$s_speed.innerHTML = s_speed == NaN ? 0 : s_speed;
+			$s_percent.innerHTML = s_percent == NaN ? 0 : s_percent;
+			$s_score.innerHTML = s_score == NaN ? 0 : s_score;
+		}
+
+		function timeFlow(){
+			//计算速度，正确率，综合评分
+			var n_count = s_count + valueLen;
+			s_speed = n_count / (useTime == 0 ? 1 : useTime) * 60;
+			if( parseInt(s_speed) != s_speed) s_speed = s_speed.toFixed(2);
+			s_percent = (s_yes / (n_count == 0 ? 1 : n_count) * 100);
+			if( parseInt(s_percent) != s_percent) s_percent = s_percent.toFixed(2);
+			s_score = s_speed * Math.pow(s_percent, 4) / 4000000 ;
+			if( parseInt(s_score) != s_score) s_score = s_score.toFixed(2);
+			useTime++;
+			updateScore();
+			progressShort();
+			if( useTime == timeLen){
+				// updateHistory();
+				alert("时间到！用时"+ (timeLen/60) +"分钟，平均速度"+ s_speed +"字每分，综合评分"+ s_score);
+				clear();
+			}
+		}
+
+		function progressShort() {
+			var width = useTime / timeLen * $time_bar.clientWidth;
+			var $span = $time_bar.getElementsByTagName("span")[0];
+			var $i = $span.getElementsByTagName("i")[0];
+			$span.style.width = width + "px";
+			$i.innerHTML = timeLen - useTime;
+			$i.style.backgroundImage = "url(images/ali_029r.gif)";
+		}
+	}
+	app();
+
+	//JS操作类名
+	function hasClass(obj, cls) {
+        return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+    }
+
+    function addClass(obj, cls) {
+        if (!this.hasClass(obj, cls)) obj.className += " " + cls;
+    }
+
+    function removeClass(obj, cls) {
+        if (hasClass(obj, cls)) {
+            var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+            obj.className = obj.className.replace(reg, '');
+        }
+    }
+	</script>
+</body>
+</html>
