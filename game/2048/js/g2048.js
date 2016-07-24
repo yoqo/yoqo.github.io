@@ -3,15 +3,10 @@ $(document).ready(function(){
         /**
         *属性
         */
-       //方块移动速度，单位毫秒
-		speed : 200,
-        //得分
-        score : 0,
-		//消灭的方块数
-		die : 0,
-		//是否开始
-		nostart : true,
-        
+		speed : 200, //方块移动速度，单位毫秒
+        score : 0, //得分
+		die : 0, //消灭的方块数
+		nostart : true, //是否开始
         
         /**
         *方法
@@ -367,12 +362,6 @@ $(document).ready(function(){
             $(".test").append(str);
         }
     };
-    document.onkeydown=function(){
-        if(!$(".cube").is(":animated")){
-            game.start(keyUp())
-//            $(".pos2,.pos15").html("4");
-        }
-    };
 	
 	//点击开始按钮
 	$(".start").click(function(){
@@ -380,24 +369,57 @@ $(document).ready(function(){
 		$(".box .cube").remove();
 		game.default();
 	});
-});
+    $(document).on('touchstart', '.start', function(){
+        $(this).trigger("click");
+    });
 
 
-//加载事件
-$(document).ready(function(){
+    document.addEventListener("keydown",function(e){
+        e = e ? e : window.event;
+        if(!$(".cube").is(":animated")){
+            game.start(e.keycode);
+        }
+    });
+
+    var startx,starty,endx,endy;
+    document.addEventListener("touchstart",function(e){
+        event.preventDefault();
+        startx = e.touches[0].pageX;
+        starty = e.touches[0].pageY;
+    });
+
+    document.addEventListener("touchmove",function(e){
+        event.preventDefault();
+    });
+
+    document.addEventListener("touchend",function(e){
+        event.preventDefault();
+        endx = e.changedTouches[0].pageX;
+        endy = e.changedTouches[0].pageY;
+        var deltax=endx-startx;
+        var deltay=endy-starty;
+        //如果没有滑动屏幕的五分之一，返回
+        if(Math.abs(deltax)<0.2*document.body.clientWidth&&Math.abs(deltay)<0.2*document.body.clientHeight){
+            return ;
+        }
+        if(Math.abs(deltax)>Math.abs(deltay)){
+            if(deltax>0){
+                //右滑
+                game.start(39)
+            }else{
+                //左滑
+                game.start(37)
+            }
+        }else{
+            if(deltay>0){
+                //下滑
+                game.start(40)
+            }else{
+                //上滑
+                game.start(38)
+            }
+
+        }
+    });
 	
-	
 });
-
- function keyUp(){
-    if(navigator.appName == "Microsoft Internet Explorer"){
-        var keycode = event.keyCode;
-     }else{
-         var keycode =  keyUp.caller.arguments[0].which;　     　　
-    }
-    return keycode;
-}
-
-
-
-

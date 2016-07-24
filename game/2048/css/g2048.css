@@ -277,7 +277,7 @@ h3 {
 }
 .btn{
 	color: #fff;
-	display: block;
+	display: inline-block;
 	height: 30px;
 	width: 100px;
 	margin: 20px 0;
@@ -296,4 +296,9 @@ h3 {
 	color: #d7ef21;
 	font-size: 28px;
 	margin-left: 10px;
+}
+
+@media screen and (max-width: 822px){
+    .content{ width: 100%; }
+    .state{ position: static; text-align: center; width: auto;}
 }
