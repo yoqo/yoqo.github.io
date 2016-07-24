@@ -492,7 +492,7 @@
 			var deltaTime = nowTime - startLineTime;
 			var gspeed = (valueLen / (deltaTime / 1000)) * 60; // 行速度 0 ~ 720↑（极限）
 			var rank = gspeed * (1 - wPercent);  //行综合评分  全错0 ~ 全对72000
-			var langComment = ["bad","nomarl","good","great","excellent","prefect"];
+			var langComment = ["bad","normal","good","great","excellent","prefect"];
 			var comment ; //评语 bad ,nomarl,good, great,excellent,prefect
 			var coClass ;
 			//人类极限打字全对速度约450每分，200以上评分为prefect
