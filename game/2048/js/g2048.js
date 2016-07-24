@@ -398,8 +398,8 @@ $(document).ready(function(){
         endy = e.changedTouches[0].pageY;
         var deltax=endx-startx;
         var deltay=endy-starty;
-        //如果没有滑动屏幕的五分之一，返回
-        if(Math.abs(deltax)<0.2*document.body.clientWidth&&Math.abs(deltay)<0.2*document.body.clientHeight){
+        //如果没有滑动屏幕的十分之一，返回
+        if(Math.abs(deltax)<0.1*document.body.clientWidth&&Math.abs(deltay)<0.1*document.body.clientHeight){
             return ;
         }
         if(Math.abs(deltax)>Math.abs(deltay)){
