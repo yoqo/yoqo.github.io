@@ -70,6 +70,8 @@ h3 {
     text-align: center;
     font: bold 30px/75px microsoft yahei;
     border-bottom: 5px solid #658ead;
+    transition: left .2s;
+    transition-property: left,top,right,bottom;
 }
 
 .start {
