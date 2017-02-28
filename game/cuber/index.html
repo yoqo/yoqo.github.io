@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>方块游戏</title>
+	<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+	<div id="gameland"></div>
+	<script src="./modules/sea.js"></script>
+	<script>
+		seajs.config({
+			base : "./modules",
+			alias : {
+				"jquery" : "jquery-2.1.4.min.js"
+			}
+		});
+
+		seajs.use("./js/main", function(main){
+			console.log(main)
+			main.init();
+		});
+	</script>
+</body>
+</html>
