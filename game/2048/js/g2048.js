@@ -217,76 +217,96 @@ $(document).ready(function(){
         
         //移动  cid=1~16位置编号,last是否最后一次,moved是否移动了方块
         move : function(cid,mlength,combine,last,moved,kn){
+            console.log(cid,kn)
             //移动距离，单位像素
 			var long=mlength*85;
             //移动后的位置编号
             var afid=0;
             switch(kn){
                 case 37:
+                    // afid=parseInt(cid-mlength);
+                    // $(".pos"+cid).animate(
+                    //     {left :"-="+long+"px"},
+                    //     game.speed,
+                    //     function(){
+                    //         $(this).removeClass("pos"+cid).addClass("pos"+afid).removeAttr("style");
+                    //         if(combine){
+                    //             game.combine(afid);
+                    //         }
+                    //         if(last&&moved){
+                    //             game.addcube();
+                    //         }
+                    //     }
+                    // );
+
                     afid=parseInt(cid-mlength);
-                    $(".pos"+cid).animate(
-                        {left :"-="+long+"px"},
-                        game.speed,
-                        function(){
-                            $(this).removeClass("pos"+cid).addClass("pos"+afid).removeAttr("style");
-                            if(combine){
-                                game.combine(afid);
-                            }
-                            if(last&&moved){
-                                game.addcube();
-                            }
-                        }
-                    );
+                    $(".pos"+cid).css({left :"-="+long+"px", transitionDuration: game.speed});
+
                     break;
                 case 38:
+                    // afid=parseInt(cid-(mlength*4));
+                    // $(".pos"+cid).animate(
+                    //     {top :"-="+long+"px"},
+                    //     game.speed,
+                    //     function(){
+                    //         $(this).removeClass("pos"+cid).addClass("pos"+afid).removeAttr("style");
+                    //         if(combine){
+                    //             game.combine(afid);
+                    //         }
+                    //         if(last&&moved){
+                    //             game.addcube();
+                    //         }
+                    //     }
+                    // );
                     afid=parseInt(cid-(mlength*4));
-                    $(".pos"+cid).animate(
-                        {top :"-="+long+"px"},
-                        game.speed,
-                        function(){
-                            $(this).removeClass("pos"+cid).addClass("pos"+afid).removeAttr("style");
-                            if(combine){
-                                game.combine(afid);
-                            }
-                            if(last&&moved){
-                                game.addcube();
-                            }
-                        }
-                    );
+                    $(".pos"+cid).css({top :"-="+long+"px", transitionDuration: game.speed});
                     break;
                 case 39:
+                    // afid=parseInt(cid+mlength);
+                    // $(".pos"+cid).animate(
+                    //     {left :"+="+long+"px"},
+                    //     game.speed,
+                    //     function(){
+                    //         $(this).removeClass("pos"+cid).addClass("pos"+afid).removeAttr("style");
+                    //         if(combine){
+                    //             game.combine(afid);
+                    //         }
+                    //         if(last&&moved){
+                    //             game.addcube();
+                    //         }
+                    //     }
+                    // );
                     afid=parseInt(cid+mlength);
-                    $(".pos"+cid).animate(
-                        {left :"+="+long+"px"},
-                        game.speed,
-                        function(){
-                            $(this).removeClass("pos"+cid).addClass("pos"+afid).removeAttr("style");
-                            if(combine){
-                                game.combine(afid);
-                            }
-                            if(last&&moved){
-                                game.addcube();
-                            }
-                        }
-                    );
+                    $(".pos"+cid).css({left :"+="+long+"px", transitionDuration: game.speed});
                     break;
                 case 40:
+                    // afid=parseInt(cid+(mlength*4));
+                    // $(".pos"+cid).animate(
+                    //     {top :"+="+long+"px"},
+                    //     game.speed,
+                    //     function(){
+                    //         $(this).removeClass("pos"+cid).addClass("pos"+afid).removeAttr("style");
+                    //         if(combine){
+                    //             game.combine(afid);
+                    //         }
+                    //         if(last&&moved){
+                    //             game.addcube();
+                    //         }
+                    //     }
+                    // );
                     afid=parseInt(cid+(mlength*4));
-                    $(".pos"+cid).animate(
-                        {top :"+="+long+"px"},
-                        game.speed,
-                        function(){
-                            $(this).removeClass("pos"+cid).addClass("pos"+afid).removeAttr("style");
-                            if(combine){
-                                game.combine(afid);
-                            }
-                            if(last&&moved){
-                                game.addcube();
-                            }
-                        }
-                    );
+                    $(".pos"+cid).css({top :"+="+long+"px", transitionDuration: game.speed});
                     break;
             };
+            setTimeout(function(){
+                $(".pos"+cid).removeClass("pos"+cid).addClass("pos"+afid).removeAttr("style");
+                if(combine){
+                    game.combine(afid);
+                }
+                if(last&&moved){
+                    game.addcube();
+                }
+            }, game.speed);
         },
 		
 		//合并方块
