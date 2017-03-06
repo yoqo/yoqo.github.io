@@ -300,6 +300,11 @@ h3 {
 }
 
 @media screen and (max-width: 822px){
-    .content{ width: 100%; }
+    .content{ width: 100%; margin-top: 0;}
+    h3{ margin-top: 10px; color: #1A555F;}
+    .box{ margin: 10px 0 0; }
     .state{ position: static; text-align: center; width: auto;}
+    .state span{ font-size: 14px; }
+    .state li{float: left; width: 50%; text-align: center; margin: 10px 0; line-height: 30px; height: 30px;}
+    .btn{ margin: 0; }
 }

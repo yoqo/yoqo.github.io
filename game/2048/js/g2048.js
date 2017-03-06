@@ -377,7 +377,7 @@ $(document).ready(function(){
     document.addEventListener("keydown",function(e){
         e = e ? e : window.event;
         if(!$(".cube").is(":animated")){
-            game.start(e.keycode);
+            game.start(e.keyCode);
         }
     });
 
