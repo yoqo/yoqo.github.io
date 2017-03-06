@@ -20,9 +20,19 @@ $(document).ready(function(){
 				game.mnc(kn);
 			}
         },
+
+        // 重开游戏
+        reset: function(){
+            $(".endbox").hide();
+            game.default();
+        },
         
         //开始时随机生成2个方块
         default : function(){
+            $(".box .cube").remove();
+            game.nostart=false;
+            game.scroe = 0;
+            game.die = 0;
             game.addcube();
             game.addcube();
         },
@@ -369,7 +379,7 @@ $(document).ready(function(){
         },
         //显示得分
         seescore : function(){
-            $(".score").html(game.score);
+            $("h3").html(game.score);
         },
 		//显示消灭方块数
 		seedie : function(){
@@ -390,6 +400,14 @@ $(document).ready(function(){
 		game.default();
 	});
     $(document).on('touchstart', '.start', function(){
+        $(this).trigger("click");
+    });
+
+    //点击重新开始
+    $(".reset-btn").click(function(){
+        game.reset();
+    });
+    $(document).on('touchstart', '.reset-btn', function(){
         $(this).trigger("click");
     });
 

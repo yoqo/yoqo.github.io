@@ -90,6 +90,8 @@ h3 {
     border-bottom-color: #2f5877;
 }
 
+.reset-btn{ position: relative; width: 200px; margin: 0 auto; display: block; }
+
 .pos1 {
     left : 20px;
     top: 40px;
@@ -288,7 +290,7 @@ h3 {
 }
 
 .final {
-	margin-top: 100px;
+	margin: 50px;
 	color: #fff;
 	font: bold 16px/1.5em microsoft yahei;
 }
@@ -300,11 +302,15 @@ h3 {
 }
 
 @media screen and (max-width: 822px){
-    .content{ width: 100%; margin-top: 0;}
+    body{ background: #aac9be; }
+    .content{ width: 100%; margin-top: 0; border: 0 none;}
     h3{ margin-top: 10px; color: #1A555F;}
     .box{ margin: 10px auto 0; }
     .state{ position: static; text-align: center; width: auto;}
     .state span{ font-size: 14px; }
     .state li{float: left; width: 50%; text-align: center; margin: 10px 0; line-height: 30px; height: 30px;}
     .btn{ margin: 0; }
+}
+@media screen and (max-width: 355px){
+    .content{ transform: scale(.9);}
 }
