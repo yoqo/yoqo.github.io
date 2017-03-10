@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="yoqo">
+	<title>熊本熊 - cssimg by yoqo</title>
+	<style>
+		html,body{ height: 100%; padding: 0; margin: 0;}
+		body{ background: #efefef;}
+		.content{ display: -webkit-flex; display: flex; -webkit-justify-content: center; justify-content: center; height: 100%; align-items:center;}
+		.bear,
+		.bear .head,
+		.bear .ear,
+		.bear .mouth,
+		.bear .face,
+		.bear .brow,
+		.bear .cheek,
+		.bear .arm{
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			display: -webkit-flex;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			-webkit-justify-content: center;
+			position: absolute;
+		}
+		.bear{ width: 300px; height: 420px; position: relative; font-size: 100px; z-index: 1;}
+		.bear .head{ position: relative; z-index: 2;}
+		.bear .face{ background: #000; height: 1.2em; width: 1.52em; top: 0; border-radius: 50% 50% 0 0 / 60% 60% 0 0; margin-top: .2em;}
+		.bear .ear{width: 2em; margin-top: .2em;}
+		.bear .ear:before,
+		.bear .ear:after{ content: ""; width: .28em; height: .28em; background: #fff; box-shadow: 0 0 0 .05em #000 inset; border-radius: 50%;}
+		.bear .ear:before{ margin-right: .48em;}
+		.bear .ear:after{ margin-left: .48em;}
+		.bear .brow{ width: 1em; margin-top: .31em;}
+		.bear .brow:before,
+		.bear .brow:after{ content: ""; width: .15em; height: .15em; border-top: .03em solid #fff; border-radius: .15em .15em 0 0; }
+		.bear .brow:before{ margin-right: .27em;}
+		.bear .brow:after{ margin-left: .27em;}
+		.bear .eye{ display: block; width: .28em; height: .28em; margin-top: .46em; box-shadow: -.33em 0 0 #fff, .33em 0 0 #fff; border-radius: 50%; position: absolute;}
+		.bear .eye:before,
+		.bear .eye:after{ content:""; width: .05em; height: .1em; border-radius: 50%; background: #000; position: absolute; top: .09em;}
+		.bear .eye:before{ left: -.21em;}
+		.bear .eye:after{ right: -.21em;}
+		.bear .mouth{ width: .7em; margin-top: .67em; height: .57em; background: #fff; border-radius: 70%;}
+		.bear .mouth:before{ content: ""; margin-top: .01em; width: .2em; height: .2em; background: #000; border-radius: 40% 100% 40% 70%; transform: rotate(-45deg);}
+		.bear .mouth:after{ content: ""; position: absolute; margin-top: .26em; width: .6em; height: .16em; background: #000; border-radius: 50%;}
+		.bear .cheek{ width: .35em; height: .35em; margin-top: .71em; box-shadow: -.64em 0 0 #fc2e30, .64em 0 0 #fc2e30; border-radius: 50%;}
+		.bear .body{ position: absolute; z-index: 1; width: 2em; height: 2.2em; background: #000; margin-top: 1.3em; border-radius: 50% 50% 30% 30%;}
+		.bear .arm{position: relative; margin-top: -.2em;}
+		.bear .arm:before,
+		.bear .arm:after{ content: ""; position: absolute; width: .5em; height: 2em; border-radius: 40% 0 50% 50%/50% 0 30% 30%; background: #000;}
+		.bear .arm:before{ transform: rotate(16deg); left: -.04em;}
+		.bear .arm:after{ transform: rotateZ(-16deg) rotateY(180deg); right: -.04em;}
+		.bear .leg{ position: absolute; width: 100%; margin-top: 1.9em;}
+		.bear .leg:before,
+		.bear .leg:after{ content: ""; position: absolute; width: .45em; height: 1em; background: #000; border-radius: 30% 50% 40% 40%/ 50% 50% 40% 40%;}
+		.bear .leg:before{ left: .05em; transform: rotate(-5deg);}
+		.bear .leg:after{ right: .05em; transform: rotateZ(5deg) rotateY(180deg);}
+		.bear .foot{ position: absolute; margin-top: .65em; width: 100%;}
+		.bear .foot:before,
+		.bear .foot:after{ content: ""; position: absolute; width: .30em; height: .35em; border-radius: 49% 20%; background: #000;}
+		.bear .foot:before{ left: .1em; transform: rotate(3deg);}
+		.bear .foot:after{ right: .1em; transform: rotateZ(-3deg) rotateY(180deg);}
+		.bear .leg-fix{position: absolute; width: 100%;}
+		.bear .leg-fix:before,
+		.bear .leg-fix:after{content:""; position: absolute; background: -webkit-radial-gradient(100% 100%, farthest-side,transparent 80%, #000 80%); width: .2em; height: .2em; margin-top: .46em;}
+		.bear .leg-fix:before{ left: .47em;}
+		.bear .leg-fix:after{ right: .47em; transform: rotateY(180deg);}
+		/*animate*/
+		.bear .brow{ animation: brow 8s linear infinite;}
+		@keyframes brow{
+			0%{ transform: translate(0,0);}
+			10%{ transform: translate(0,0);}
+			12%{ transform: translate(0,-.05em);}
+			14%{ transform: translate(0,0);}
+			16%{ transform: translate(0,-.05em);}
+			18%{ transform: translate(0,0);}
+			42%{ transform: translate(0,0);}
+			44%{ transform: translate(0,-.05em);}
+			46%{ transform: translate(0,0);}
+			48%{ transform: translate(0,-.05em);}
+			50%{ transform: translate(0,0);}
+			70%{ transform: translate(0,0);}
+			100%{ transform: translate(0,0);}
+		}
+		.bear .mouth:after{ animation: mouth 8s linear infinite;}
+		@keyframes mouth{
+			0%{ width: .6em}
+			10%{ width: .2em}
+			60%{ width: .2em}
+			70%{ width: .6em}
+			100%{ width: .6em}
+		}
+		/*copyright*/
+		.yoqo-copyright{ position: fixed; z-index: 10000; right: 10px; bottom: 10px; color: #777; text-shadow: 1px 1px 0 #fff; font-size: 12px;}
+		.yoqo-copyright a{ color: #777; text-decoration: none; margin: 0 5px;}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<div class="bear">
+			<div class="head">
+				<div class="face"></div>
+				<div class="ear"></div>
+				<div class="brow"></div>
+				<div class="eye"></div>
+				<div class="mouth"></div>
+				<div class="cheek"></div>
+			</div>
+			<div class="body">
+				<div class="arm"></div>
+				<div class="leg">
+					<div class="leg-fix"></div>
+					<div class="foot"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="yoqo-copyright">&copy; 2017 by <a href="http://www.3yak.com/" target="_blank">yoqo</a><a href="https://github.com/yoqo" target="_blank">github</a><a href="mailto:kk1346@qq.com">e-mail</a></div>
+</body>
+</html>
