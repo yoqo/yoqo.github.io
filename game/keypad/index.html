@@ -265,7 +265,7 @@
 		var lang = {
 			please_input1 : "★亲，现在请敲击键盘，输入组1的数字",
 			please_input2 : "★亲，现在请敲击键盘，输入组2的数字",
-			please_space  : "★亲，输入完成，按空格键继续"
+			please_space  : "★亲，输入完成，按Enter键继续"
 		};
 
 		document.addEventListener("keydown", function(e) {
@@ -447,7 +447,9 @@
 		function pressSpace(e) {
 			e = e ? e : window.event;
 			if(e.keyCode){
-				if(e.keyCode == 32){
+				// 按空格改为按enter
+				// if(e.keyCode == 32){
+				if(e.keyCode == 13){
 					$input.value = "";//清空输入框
 					//统计组成绩
 					s_count_g++;
